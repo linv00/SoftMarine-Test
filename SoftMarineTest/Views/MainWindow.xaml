@@ -1,0 +1,262 @@
+﻿<Window x:Class="SoftMarineTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SoftMarineTest.ViewModels"
+        xmlns:local="clr-namespace:SoftMarineTest"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="750" Width="1200">
+
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="6*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Background="#ffffff">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Bottom"
+                       FontSize="16"
+                       FontWeight="SemiBold"
+                       Foreground="#256d7b"
+                       Margin="10, 0, 0, 5">Разделы</TextBlock>
+
+            <Grid Grid.Row="1"  Background="#f5f7ff">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="10, 5, 10, 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="170"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" 
+                            Margin="0, 0, 10, 0"
+                            Command="{Binding AddSectionCommand}"
+                            BorderThickness="2"
+                            BorderBrush="#e8ecff"
+                            Background="Transparent">
+                        <Button.Content>
+                            <Image Height="16" Width="16" Source="/Assets/add.png"/>
+                        </Button.Content>
+                    </Button>
+
+                    <Button Grid.Column="1" 
+                            Margin="0, 0, 10, 0"
+                            Command="{Binding EditSectionCommand}"
+                            BorderThickness="2"
+                            BorderBrush="#e8ecff"
+                            Background="Transparent">
+                        <Button.Content>
+                            <Image Height="16" Width="16" Source="/Assets/edit.png"/>
+                        </Button.Content>
+                    </Button>
+
+                    <Button Grid.Column="3" 
+                            Margin="15, 0, 5, 0"
+                            Command="{Binding SearchSectionCommand}"
+                            BorderThickness="2"
+                            BorderBrush="#e8ecff"
+                            Background="Transparent">
+                        <Button.Content>
+                            <Image Height="16" Width="16" Source="/Assets/search.png"/>
+                        </Button.Content>
+                    </Button>
+
+                    <TextBox Grid.Column="4"
+                             Width="170"
+                             Height="28"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Right"
+                             VerticalContentAlignment ="Center"
+                             BorderBrush="#a4c9de">
+                        
+                    </TextBox>
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="10, 5, 10, 5">
+                    <DataGrid ColumnHeaderStyle="{StaticResource SectionHeaderTableStyle}" 
+                              Margin="1, 0, 1, 1" 
+                              BorderThickness="0, 0, 0, 1" 
+                              BorderBrush="#a4c9de"
+                              GridLinesVisibility="None"
+                              ScrollViewer.CanContentScroll="True" 
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                              RowStyle ="{StaticResource SectionTableRowStyle}"
+                              SelectedItem = "{Binding SectionSelectedItem}"
+                              ItemsSource="{Binding VisibleSectionsList}"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              HeadersVisibility="Column">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="20" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button   
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            BorderThickness="0"
+                                            Cursor="Hand"
+                                            Command="{Binding Path=DataContext.OpenSectionCommand,
+                                                    RelativeSource={RelativeSource 
+                                                    FindAncestor,
+                                                    AncestorType={x:Type DataGrid}}}"
+                                            Background="Transparent"
+                                            Visibility="{Binding hasChildren, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            <Image x:Name="DownArrow"
+                                                   Source="{Binding arrowPath}" 
+                                                   Height="12"
+                                                   Width="12"
+                                                   HorizontalAlignment="Center" 
+                                                   VerticalAlignment="Center"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn Width="60" 
+                                                Header="№" 
+                                                Binding="{Binding sectionCode}"
+                                                CellStyle="{StaticResource SectionCodeDataGridCellStyle}"
+                                                ></DataGridTextColumn>
+
+                            <DataGridTextColumn Width="Auto" 
+                                                Header="Название раздела" 
+                                                CellStyle="{StaticResource SectionNameDataGridCellStyle}"
+                                                Binding="{Binding sectionName}"
+                                                ></DataGridTextColumn>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Column="1" Background="#ffffff">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Bottom"
+                       FontSize="16"
+                       FontWeight="SemiBold"
+                       Foreground="#256d7b"
+                       Margin="10, 0, 0, 5">Документы</TextBlock>
+
+            <Grid Grid.Row="1"  Background="#f5f7ff">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="10, 5, 10, 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="170"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" 
+                            Margin="0, 0, 10, 0"
+                            Command="{Binding AddDocumentCommand}"
+                            BorderThickness="2"
+                            BorderBrush="#e8ecff"
+                            Background="Transparent">
+                        <Button.Content>
+                            <Image Height="16" Width="16" Source="/Assets/add.png"/>
+                        </Button.Content>
+                    </Button>
+
+                    <Button Grid.Column="1" 
+                            Margin="0, 0, 10, 0"
+                            Command="{Binding EditDocumentCommand}"
+                            BorderThickness="2"
+                            BorderBrush="#e8ecff"
+                            Background="Transparent">
+                        <Button.Content>
+                            <Image Height="16" Width="16" Source="/Assets/edit.png"/>
+                        </Button.Content>
+                    </Button>
+                    
+                    <Button Grid.Column="2" 
+                            Margin="0, 0, 10, 0"
+                            Command="{Binding DeleteDocumentCommand}"
+                            BorderThickness="2"
+                            BorderBrush="#e8ecff"
+                            Background="Transparent">
+                        <Button.Content>
+                            <Image Height="16" Width="16" Source="/Assets/delete.png"/>
+                        </Button.Content>
+                    </Button>
+
+                    <Button Grid.Column="4" 
+                            Margin="15, 0, 5, 0"
+                            Command="{Binding SearchDocumentCommand}"
+                            BorderThickness="2"
+                            BorderBrush="#e8ecff"
+                            Background="Transparent">
+                        <Button.Content>
+                            <Image Height="16" Width="16" Source="/Assets/search.png"/>
+                        </Button.Content>
+                    </Button>
+
+                    <TextBox Grid.Column="5"
+                             Width="170"
+                             Height="28"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Right"
+                             VerticalContentAlignment ="Center"
+                             BorderBrush="#a4c9de"
+                             Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+                    </TextBox>
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="10, 5, 10, 5">
+                    <DataGrid ColumnHeaderStyle="{StaticResource DocumentHeaderTableStyle}" 
+                              Margin="1, 0, 1, 1" 
+                              BorderThickness="1" 
+                              BorderBrush="#a4c9de"
+                              RowStyle ="{StaticResource DocumentTableRowStyle}"
+                              SelectedItem = "{Binding DocumentSelectedItems}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="60" Header="№"></DataGridTextColumn>
+                            <DataGridTextColumn Width="60" Header="Код"></DataGridTextColumn>
+                            <DataGridTextColumn Width="*" Header="Название документа"></DataGridTextColumn>
+                            <DataGridTextColumn Width="95" Header="Дата последнего изменения"></DataGridTextColumn>
+                            <DataGridTextColumn Width="50" Header="Файлы" ></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

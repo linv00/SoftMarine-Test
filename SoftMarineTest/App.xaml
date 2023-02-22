@@ -1,0 +1,138 @@
+﻿<Application x:Class="SoftMarineTest.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:SoftMarineTest"
+             StartupUri="/Views/MainWindow.xaml">
+    <Application.Resources>
+        
+        
+        
+        <Style x:Key="SectionHeaderTableStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#c6e4f5"/>
+            <Setter Property="Foreground" Value="#256d7b"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="400"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#a4c9de"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Visibility" Value="Visible"/>
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock TextWrapping="Wrap"
+                                   TextAlignment="Center"
+                                   LineStackingStrategy="BlockLineHeight" 
+                                   LineHeight="15"
+                                   Text="{Binding}"></TextBlock>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DocumentHeaderTableStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#c6e4f5"/>
+            <Setter Property="Foreground" Value="#256d7b"/>
+            <Setter Property="Height" Value="55"/>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="400"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#a4c9de"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Visibility" Value="Visible"/>
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock TextWrapping="Wrap"
+                                   TextAlignment="Center"
+                                   LineStackingStrategy="BlockLineHeight" 
+                                   LineHeight="15"
+                                   Text="{Binding}"></TextBlock>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SectionCodeDataGridCellStyle" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Grid>
+                            <TextBox x:Name="CellTextBox"
+                                   FontSize="14"
+                                   HorizontalAlignment="Center" 
+                                   TextWrapping="Wrap"
+                                   VerticalAlignment="Center"
+                                   BorderBrush="Transparent"
+                                   BorderThickness="0"
+                                   IsReadOnly="True"
+                                   FontWeight="Bold"
+                                   Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content.Text}"
+                                   Foreground="#E2000000"
+                                   Background="Transparent">
+                            </TextBox>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SectionNameDataGridCellStyle" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Grid>
+                            <TextBox x:Name="CellTextBox"
+                                   FontSize="14"
+                                   HorizontalAlignment="Left" 
+                                   TextWrapping="NoWrap"
+                                   VerticalAlignment="Center"
+                                   BorderBrush="Transparent"
+                                   BorderThickness="0"
+                                   IsReadOnly="True"
+                                   FontWeight="Bold"
+                                   Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content.Text}"
+                                   Foreground="#E2000000"
+                                   Background="Transparent">
+                            </TextBox>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="CellTextBox"  Property="BorderBrush" Value="{x:Null}"/>
+                                <Setter TargetName="CellTextBox" Property="Background" Value="{x:Null}"/>
+                                <Setter TargetName="CellTextBox" Property="Foreground" Value="#E2000000"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style x:Key="SectionTableRowStyle" TargetType="DataGridRow">
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Foreground" Value="#E2000000"/>
+            <Setter Property="BorderThickness" Value="0, 0, 0, 1"/>
+            <Setter Property="BorderBrush" Value="#a4c9de"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#c7deeb"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DocumentTableRowStyle" TargetType="DataGridRow">
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Foreground" Value="#E2000000"/>
+
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#c7deeb"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Application.Resources>
+</Application>

@@ -1,0 +1,116 @@
+﻿<Window x:Class="SoftMarineTest.Views.AddSectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SoftMarineTest.ViewModels"
+        xmlns:local="clr-namespace:SoftMarineTest.Views"
+        mc:Ignorable="d"
+        Title="AddSectionWindow" Height="300" Width="700">
+
+
+    <Window.DataContext>
+        <vm:AddSectionWindowViewModel/>
+    </Window.DataContext>
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            GlassFrameThickness="5"
+            ResizeBorderThickness="1"
+            />
+    </WindowChrome.WindowChrome>
+
+    <Grid Background="#f5f7ff">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="40"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0"
+              Grid.ColumnSpan="3"
+              Background="#a4c9de"></Grid> 
+        <TextBlock Grid.Row="0"
+                   Grid.Column="1"
+                   FontSize="26"
+                   FontWeight="SemiBold"
+                   Foreground="#256d7b"
+                   VerticalAlignment="Center"
+                   >
+            Добавление раздела
+        </TextBlock>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="6*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       FontSize="18"
+                       VerticalAlignment="Center"
+                       Foreground="#256d7b">
+                Выберите родительский раздел
+            </TextBlock>
+            <ComboBox Grid.Row="0"
+                      Grid.Column="1"
+                      Height="30"
+                      Width="300"
+                      HorizontalAlignment="Right"
+                      ItemsSource="{Binding ComboBoxItems}"
+                      SelectedItem="{Binding SelectedParentSection}"
+                      DisplayMemberPath="sectionName"
+                      SelectedIndex="1"
+                      VerticalAlignment="Center">
+            </ComboBox>
+            <TextBlock Grid.Row="1" 
+                       Grid.Column="0"
+                       FontSize="18"
+                       Foreground="#256d7b"
+                       VerticalAlignment="Center">
+                Введите название раздела
+            </TextBlock>
+            <TextBox Grid.Row="1"
+                     Grid.Column="1"
+                     Height="30"
+                     Width="300"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Center"
+                     Text="{Binding NewSectionName, Mode=TwoWay}"
+                     >
+                
+            </TextBox>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Margin="0, 0, 40, 20"
+                    Foreground="#256d7b"
+                    Background="#a4c9de"
+                    Command="{Binding CancelCommand}"
+                    TextBlock.FontSize="20">
+                Отмена
+            </Button>
+            <Button Grid.Column="1"
+                    Margin="40, 0, 0, 20"
+                    TextBlock.FontSize="20"
+                    Background="#a4c9de"
+                    Foreground="#256d7b"
+                    Command="{Binding AddNewSectionCommand}">
+                Добавить
+            </Button>
+        </Grid>
+    </Grid>
+</Window>
